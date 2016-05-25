@@ -27,15 +27,18 @@ add_action( 'wp_footer','tf_render_footer_text' );
 * @since 1.0.0
 * @access public
 */
-function tf_action_header() {
-       $header_text = TF_Settings::get('header_text');
+
+		if ( TF_Model::is_tf_editor_active() ) { function tf_action_header(){} } else {
+        function tf_action_header() {
+    $header_text = TF_Settings::get('header_text');         
+    if($header_text){
+           echo "\n\n" . $header_text;
+       }
        $favicon = TF_Settings::get('favicon');
        if($favicon){
            echo '<link rel="Shortcut Icon" href="'.$favicon.'" type="image/x-icon" />';
        }
-       if($header_text){
-           echo "\n\n" . $header_text;
-       }
+       
        //Add viewport tag for responsive layouts
        $responsive = TF_Settings::get('disable_responsive');
        if(!$responsive || !checked($responsive,'on',false)){
@@ -44,7 +47,8 @@ function tf_action_header() {
        else{
            echo "\n".'<meta name="viewport" content="width=1200">'."\n";
        }
-}
+      }
+   }
 
 /**
 * Render footer text
@@ -52,12 +56,15 @@ function tf_action_header() {
 * @since 1.0.0
 * @access public
 */
-function tf_render_footer_text() {
-       $footer_text = TF_Settings::get('footer_text');
-       if($footer_text){
+if ( TF_Model::is_tf_editor_active() ) {function tf_render_footer_text() {} } else {
+            function tf_render_footer_text() {
+       $footer_text = TF_Settings::get('footer_text');    
+           if($footer_text){
            echo "\n\n" . $footer_text;
-       }
-}
+           }
+        }
+        }
+
 
 
 
