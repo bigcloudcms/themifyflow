@@ -1,12 +1,9 @@
 <?php
-
 class TF_Module_Menu extends TF_module {
-
 	/**
 	 * Inline scripts used by menu module added to footer
 	 */
 	var $footer_scripts = '';
-
 	public function __construct() {
 		parent::__construct( array(
 			'name' => __( 'Menu', 'themify-flow' ),
@@ -15,13 +12,11 @@ class TF_Module_Menu extends TF_module {
 			'shortcode' => 'tf_menu',
 			'category' => array('content','global')
 		) );
-
 		include_once( dirname( __FILE__ ) . '/class-menu-dropdown.php' );
 		add_action( 'after_setup_theme', array( $this, 'register_default_menu_location' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 		add_action( 'wp_footer', array( $this, 'footer_scripts' ), 99 );
 	}
-
 	public function fields() {
 		$menu_option = array(
 			array( 'value' => '__default', 'name' => __( 'Default Menu', 'themify-flow' ) )
@@ -30,7 +25,6 @@ class TF_Module_Menu extends TF_module {
 		if( ! empty( $menus ) ) { foreach( $menus as $menu ) {
 			$menu_option[] = array( 'name' => $menu->name, 'value' => $menu->slug );
 		} }
-
 		return apply_filters( 'tf_module_menu_fields', array(
 			'nav_menu' => array(
 				'type' => 'select',
@@ -64,7 +58,6 @@ class TF_Module_Menu extends TF_module {
 			),
 		) );
 	}
-
 	/**
 	 * Module style selectors.
 	 * 
@@ -133,7 +126,6 @@ class TF_Module_Menu extends TF_module {
 			),
 		) );
 	}
-
 	/**
 	 * Render main shortcode.
 	 * 
@@ -150,7 +142,6 @@ class TF_Module_Menu extends TF_module {
 			'mobile_menu_breakpoint' => 600,
 			'mobile_menu_label' => __( 'Menu', 'themify-flow' ),
 		), $atts, $this->shortcode ) );
-
 		ob_start(); ?>
 
 		<?php
@@ -173,18 +164,16 @@ class TF_Module_Menu extends TF_module {
 				'menu_class' => 'tf_menu',
 			) );
 		}
-
 		// mobile menu
 		if( 'yes' == $mobile_menu ) {
 			if( '__default' == $nav_menu ) {
-				if( has_nav_menu( 'default_menu' ) ) { ?>
-					           <div id="mobile-nav-trigger" class="nav-trigger">
-              <button class="nav-trigger-case collapsed mobileclass" data-toggle="collapse" rel="nofollow" data-target=".mobile_menu_collapse">
-                <span class="kad-navbtn clearfix"><i class="icon-menu"></i></span>
-                <?php {$menu_text = __('Menu', 'virtue');} ?>
-                <span class="kad-menu-name"><?php echo $menu_text; ?></span>
-              </button>
-            </div> <?php
+				if( has_nav_menu( 'default_menu' ) ) {
+					wp_nav_menu( array(
+						'theme_location' => 'default_menu',
+						'container' => false,
+						'walker'         => new Walker_Nav_Menu_TF_Dropdown(),
+						'items_wrap'     => '<div class="mobile-menu"><form><div class="tf_mobile_menu_wrap"><select onchange="if (this.value) window.location.href=this.value"><option value="">' . $mobile_menu_label . '</option>%3$s</select></div></form></div>',
+					) );
 				} else {
 					echo '<div class="mobile-menu">';
 					$this->wp_dropdown_pages( array(), $mobile_menu_label );
@@ -195,7 +184,7 @@ class TF_Module_Menu extends TF_module {
 					'menu' => $nav_menu,
 					'container' => false,
 					'walker'         => new Walker_Nav_Menu_TF_Dropdown(),
-					'items_wrap'     => '<div class="mobile-menu"><div class="tf_mobile_menu_wrap"><a href="#">Menu</a><ul class="sub-menu" onchange="if (this.value) window.location.href=this.value"><li value="">' . $mobile_menu_label . '</li>%3$s</ul></div></div>',
+					'items_wrap'     => '<div class="mobile-menu"><form><div class="tf_mobile_menu_wrap"><select onchange="if (this.value) window.location.href=this.value"><option value="">' . $mobile_menu_label . '</option>%3$s</select></div></form></div>',
 				) );
 			}
 			?>
@@ -212,18 +201,14 @@ class TF_Module_Menu extends TF_module {
 		<?php } ?>
 
 		<?php
-
 		// on touch devices add dropdown script
 		if( wp_is_mobile() ) {
 			wp_enqueue_script( 'themify-dropdown' );
 			$this->footer_scripts .= sprintf( 'jQuery(function(){ jQuery( ".tf_module_block_%s.tf_module_menu .tf_menu" ).themifyDropdown() });', $atts['sc_id'] );
 		}
-
 		$output = ob_get_clean();
-
 		return $output;
 	}
-
 	/**
 	 * Modified version of wp_dropdown_pages where the select field redirects to the actual page.
 	 *
@@ -240,16 +225,13 @@ class TF_Module_Menu extends TF_module {
 			'show_option_none' => '', 'show_option_no_change' => '',
 			'option_none_value' => ''
 		);
-
 		$r = wp_parse_args( $args, $defaults );
-
 		$pages = get_pages( $r );
 		$output = '';
 		// Back-compat with old system where both id and name were based on $name argument
 		if ( empty( $r['id'] ) ) {
 			$r['id'] = $r['name'];
 		}
-
 		if ( ! empty( $pages ) ) {
 			$output = "<div class=\"tf_mobile_menu_wrap\"><select onchange=\"if (this.value) window.location.href=this.value\" name='" . esc_attr( $r['name'] ) . "' id='" . esc_attr( $r['id'] ) . "'>\n";
 			$output .= '<option value="">' . $mobile_menu_label . '</option>';
@@ -262,7 +244,6 @@ class TF_Module_Menu extends TF_module {
 			$output .= $this->walk_page_dropdown_tree( $pages, $r['depth'], $r );
 			$output .= "</select></div>\n";
 		}
-
 		/**
 		 * Filter the HTML output of a list of pages as a drop down.
 		 *
@@ -271,13 +252,11 @@ class TF_Module_Menu extends TF_module {
 		 * @param string $output HTML output for drop down list of pages.
 		 */
 		$html = apply_filters( 'wp_dropdown_pages', $output );
-
 		if ( $r['echo'] ) {
 			echo $html;
 		}
 		return $html;
 	}
-
 	/**
 	 * Retrieve HTML dropdown (select) content for page list.
 	 *
@@ -291,26 +270,21 @@ class TF_Module_Menu extends TF_module {
 			$walker = new Walker_TF_PageDropdown;
 		else
 			$walker = $args[2]['walker'];
-
 		return call_user_func_array( array( $walker, 'walk'), $args );
 	}
-
 	public function register_default_menu_location() {
 		register_nav_menus( array(
 			'default_menu' => __( 'Default Menu', 'themify-flow' ),
 		) );
 	}
-
 	public function wp_enqueue_scripts() {
 		global $TF;
 		wp_register_script( 'themify-dropdown', $TF->framework_uri() . '/assets/js/themify.dropdown.js', array( 'jquery' ), $TF->get_version(), true );
 	}
-
 	public function footer_scripts() {
 		if( ! empty( $this->footer_scripts ) ) {
 			echo sprintf( '<script>%s</script>', $this->footer_scripts );
 		}
 	}
 }
-
 new TF_Module_Menu();
