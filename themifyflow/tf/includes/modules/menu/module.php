@@ -177,13 +177,14 @@ class TF_Module_Menu extends TF_module {
 		// mobile menu
 		if( 'yes' == $mobile_menu ) {
 			if( '__default' == $nav_menu ) {
-				if( has_nav_menu( 'default_menu' ) ) {
-					wp_nav_menu( array(
-						'theme_location' => 'default_menu',
-						'container' => false,
-						'walker'         => new Walker_Nav_Menu_TF_Dropdown(),
-						'items_wrap'     => '<div class="mobile-menu"><div class="tf_mobile_menu_wrap"><a href="#">Menu</a><ul class="sub-menu" onchange="if (this.value) window.location.href=this.value"><li value="">' . $mobile_menu_label . '</li>%3$s</ul></div></div>',
-					) );
+				if( has_nav_menu( 'default_menu' ) ) { ?>
+					           <div id="mobile-nav-trigger" class="nav-trigger">
+              <button class="nav-trigger-case collapsed mobileclass" data-toggle="collapse" rel="nofollow" data-target=".mobile_menu_collapse">
+                <span class="kad-navbtn clearfix"><i class="icon-menu"></i></span>
+                <?php {$menu_text = __('Menu', 'virtue');} ?>
+                <span class="kad-menu-name"><?php echo $menu_text; ?></span>
+              </button>
+            </div> <?php
 				} else {
 					echo '<div class="mobile-menu">';
 					$this->wp_dropdown_pages( array(), $mobile_menu_label );
