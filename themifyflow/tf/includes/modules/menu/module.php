@@ -182,7 +182,7 @@ class TF_Module_Menu extends TF_module {
 						'theme_location' => 'default_menu',
 						'container' => false,
 						'walker'         => new Walker_Nav_Menu_TF_Dropdown(),
-						'items_wrap'     => '<div class="mobile-menu"><form><div class="tf_mobile_menu_wrap"><a href="#">Menu</a><ul class="sub-menu" onchange="if (this.value) window.location.href=this.value"><li value="">' . $mobile_menu_label . '</li>%3$s</ul></div></form></div>',
+						'items_wrap'     => '<div class="mobile-menu"><div class="tf_mobile_menu_wrap"><a href="#">Menu</a><ul class="sub-menu" onchange="if (this.value) window.location.href=this.value"><li value="">' . $mobile_menu_label . '</li>%3$s</ul></div></div>',
 					) );
 				} else {
 					echo '<div class="mobile-menu">';
@@ -194,7 +194,7 @@ class TF_Module_Menu extends TF_module {
 					'menu' => $nav_menu,
 					'container' => false,
 					'walker'         => new Walker_Nav_Menu_TF_Dropdown(),
-					'items_wrap'     => '<div class="mobile-menu"><form><div class="tf_mobile_menu_wrap"><a href="#">Menu</a><ul class="sub-menu" onchange="if (this.value) window.location.href=this.value"><li value="">' . $mobile_menu_label . '</li>%3$s</ul></div></form></div>',
+					'items_wrap'     => '<div class="mobile-menu"><div class="tf_mobile_menu_wrap"><a href="#">Menu</a><ul class="sub-menu" onchange="if (this.value) window.location.href=this.value"><li value="">' . $mobile_menu_label . '</li>%3$s</ul></div></div>',
 				) );
 			}
 			?>
