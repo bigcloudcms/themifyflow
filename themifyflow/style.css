@@ -1067,6 +1067,18 @@ NEXT/PREV POST LINK
 	overflow: hidden;
 	text-align: center;
 }
+/*
+Themify Builder Support
+================================================ */
+.bg_left_top { background-position:left top;}
+.bg_left_center { background-position:left center;}
+.bg_left_bottom { background-position:left bottom;}
+.bg_center_top { background-position:center top;}
+.bg_center_center { background-position:center center;}
+.bg_center_bottom { background-position:center bottom;}
+.bg_right_top { background-position:right top;}
+.bg_right_center { background-position:right center;}
+.bg_right_bottom { background-position:right bottom;}
 
 
 /*
@@ -1639,4 +1651,63 @@ body.single-tf_template_part {
 .tf_template_part_title span {
 	text-transform: uppercase;
 	font-weight: bold;
+}
+
+/* Mobile Menu Customize using https://github.com/sparkbox/Custom-Selectbox/blob/master/js/jquery.sparkbox-select.js
+============================================================================================================================ */
+.sb-custom {
+  cursor: pointer;
+  display: inline;
+  position: relative;
+  width:  100%;
+}
+.sparkbox-custom {
+  display: none;
+}
+.no-js .sparkbox-custom {
+  display: block;
+}
+
+.sb-select:focus {
+  -webkit-box-shadow: 0 0 4px 2px #79aed7;
+     -moz-box-shadow: 0 0 4px 2px #79aed7;
+          box-shadow: 0 0 4px 2px #79aed7;
+}
+.sb-select {
+  background: #d3d1be url('../i/select-arrow.jpg') no-repeat 100% 50%;
+  border: none;
+  color: #444;
+  left: 0;
+  padding: 5px 30px 5px 5px;
+  position: relative;
+  text-decoration: none;
+  top: 0;
+  width: 200px;
+  z-index: 1;
+}
+.sb-dropdown {
+  background: white;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .2), inset 0px 6px 8px -8px rgba(0, 0, 0, .5);
+     -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .2), inset 0px 6px 8px -8px rgba(0, 0, 0, .5);
+          box-shadow: 0 0 4px rgba(0, 0, 0, .2), inset 0px 6px 8px -8px rgba(0, 0, 0, .5);
+  display: none;
+  font-size: .9em;
+  left: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  position: absolute;
+  top: 1.35em;
+  width: 200px;
+  z-index: 2;
+}
+.sb-dropdown a {
+  color: #444;
+  display: block;
+  padding: 3px;
+  text-decoration: none;
+}
+.sb-dropdown a:hover,
+.sb-dropdown .selected {
+  background: #d3d1be;
 }
