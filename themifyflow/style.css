@@ -1067,19 +1067,6 @@ NEXT/PREV POST LINK
 	overflow: hidden;
 	text-align: center;
 }
-/*
-Themify Builder Support
-================================================ */
-.bg_left_top { background-position:left top;}
-.bg_left_center { background-position:left center;}
-.bg_left_bottom { background-position:left bottom;}
-.bg_center_top { background-position:center top;}
-.bg_center_center { background-position:center center;}
-.bg_center_bottom { background-position:center bottom;}
-.bg_right_top { background-position:right top;}
-.bg_right_center { background-position:right center;}
-.bg_right_bottom { background-position:right bottom;}
-
 
 /*
 MODULE VIDEO
@@ -1711,3 +1698,23 @@ body.single-tf_template_part {
 .sb-dropdown .selected {
   background: #d3d1be;
 }
+
+/*
+Themify Builder Support
+================================================ */
+.bg_left_top { background-position:left top;}
+.bg_left_center { background-position:left center;}
+.bg_left_bottom { background-position:left bottom;}
+.bg_center_top { background-position:center top;}
+.bg_center_center { background-position:center center;}
+.bg_center_bottom { background-position:center bottom;}
+.bg_right_top { background-position:right top;}
+.bg_right_center { background-position:right center;}
+.bg_right_bottom { background-position:right bottom;}
+
+.float_center, .margin_center {margin-left:auto; margin-right:auto; float:none;}
+
+.pos_abs {position: absolute;}
+.pos_rel {position: relative;}
+.pos_fix {position: fixed;}
+.pos_sta {position: static;}
